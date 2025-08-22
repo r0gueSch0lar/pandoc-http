@@ -1,10 +1,10 @@
-FROM node:7.2
-MAINTAINER Dennis Wolters <mail@dwolt.de>
+FROM node:22
+# MAINTAINER Dennis Wolters <mail@dwolt.de>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBIAN_PRIORITY critical
 ENV DEBCONF_NOWARNINGS yes
-ENV PANDOC_VERSION 1.19
+ENV PANDOC_VERSION 3.7
 ENV NODE_ENV production
 
 RUN apt-get -qq update && \
@@ -25,6 +25,9 @@ COPY ./ /app
 
 RUN npm install
 
-EXPOSE 80
+ARG PANDOC_PORT=8080
+ENV PANDOC_PORT=${PANDOC_PORT}
+EXPOSE ${PANDOC_PORT}
 
-CMD ["node", "server.js"]
+
+CMD ["PORT=${PANDOC_PORT}", "node", "server.js"]

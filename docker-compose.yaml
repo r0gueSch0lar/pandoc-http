@@ -1,0 +1,32 @@
+services:
+  pandoc-http:
+    profiles:
+      - pandoc-http
+    container_name: pandoc-http
+    build:
+      context: .
+      args:
+        - PANDOC_PORT=8080
+    image: pandoc-http:latest
+    pull_policy: never
+    ports:
+      - PANDOC_PORT=${PANDOC_PORT:-8080}
+    restart: unless-stopped
+
+  pandoc-latex-http:
+    profiles:
+      - pandoc-latex-http
+    container_name: pandoc-latex-http
+    build:
+      context: .
+      dockerfile: Dockerfile-latex
+      args:
+        - PANDOC_PORT=${PANDOC_PORT:-8080}
+    image: pandoc-latex-http:latest
+    pull_policy: never
+    environment:
+      - PANDOC_PORT=${PANDOC_PORT:-8080}
+    ports:
+      - ${PANDOC_PORT:-8080}:${PANDOC_PORT:-8080}
+    command: ["node", "server.js"]
+    restart: unless-stopped
