@@ -7,10 +7,13 @@ services:
       context: .
       args:
         - PANDOC_PORT=8080
+        - PANDOC_VERSION=3.7
     image: pandoc-http:latest
     pull_policy: never
-    ports:
+    environment:
       - PANDOC_PORT=${PANDOC_PORT:-8080}
+    ports:
+      - ${PANDOC_PORT:-8080}:${PANDOC_PORT:-8080}
     restart: unless-stopped
 
   pandoc-latex-http:
@@ -22,11 +25,12 @@ services:
       dockerfile: Dockerfile-latex
       args:
         - PANDOC_PORT=${PANDOC_PORT:-8080}
+        - PANDOC_VERSION=3.7
     image: pandoc-latex-http:latest
     pull_policy: never
     environment:
       - PANDOC_PORT=${PANDOC_PORT:-8080}
     ports:
       - ${PANDOC_PORT:-8080}:${PANDOC_PORT:-8080}
-    command: ["node", "server.js"]
+    # command: ["node", "server.js"]
     restart: unless-stopped

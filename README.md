@@ -13,7 +13,7 @@ RESTful HTTP API for Pandoc forked from [dwolters/pandoc-http](https://github.co
 ### Update pandoc version to 3.7
 
 run docker compose --profile (pandoc-http or pandoc-latex-http) build
-Hhasnt been thoroughly tested yet, just knocked together so I can continue learning Latex
+Hasnt been thoroughly tested yet, just knocked together so I can continue learning Latex
 
 ===========================
 [Pandoc](http://pandoc.org/) is an amazing universal document converter. Unfortunately, it

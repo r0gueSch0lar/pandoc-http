@@ -1,7 +1,7 @@
 FROM node:22
 # MAINTAINER Dennis Wolters <mail@dwolt.de>
-
-ENV PANDOC_VERSION 3.7
+ARG PANDOC_VERSION=3.7
+ENV PANDOC_VERSION=${PANDOC_VERSION}
 ENV NODE_ENV production
 
 RUN wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb && \
@@ -17,6 +17,8 @@ COPY ./ /app
 
 RUN npm install
 
-EXPOSE 80
+ARG PANDOC_PORT=8080
+ENV PANDOC_PORT=${PANDOC_PORT}
+EXPOSE ${PANDOC_PORT}
 
 CMD ["node", "server.js"]
